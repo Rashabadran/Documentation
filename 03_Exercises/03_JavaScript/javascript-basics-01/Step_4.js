@@ -1,5 +1,8 @@
-var myname,surname,city;
-myname=prompt("What is your name?")
-surname=prompt("What is your surname?")
-city=prompt("What is your city?")
-alert("Hello"+ myname+" "+ surname +"\nYour city is: "+city)
+
+
+function myfunction(){
+    nom=document.getElementById("name").value;
+    surname=document.getElementById("surname").value;
+    city=document.getElementById("city").value;
+    alert("Hello "+ nom+" "+ surname +"\nYour city is: "+city)
+}
