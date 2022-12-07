@@ -1,4 +1,7 @@
-var x=prompt("Please enter the first number: ")
-var y=prompt("Please enter the second number: ")
-var z=x/y
-alert("The remainder of " +x+"/"+y+"=" +z)
+
+function myfunction(){
+    x=document.getElementById("first_number").value;
+    y=document.getElementById("second_number").value;
+    var z=x/y
+    alert("The result of " +x+"/"+y+"=" +z)
+ }
