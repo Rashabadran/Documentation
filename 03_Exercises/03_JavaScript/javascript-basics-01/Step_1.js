@@ -1,3 +1,3 @@
 
-    var x="Ahmad";
-    alert("Your name is: "+x)
+    var nam;
+    alert("Your name is: "+nam)
