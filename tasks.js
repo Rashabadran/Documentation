@@ -40,8 +40,8 @@ function onDataReceived(text) {
   else if(text === 'hello\n' || text.startsWith("hello") ){
     hello(text);
   }
-  else if(text === 'help\n'){
-    help();
+  else if(text === 'help\n' || text.startsWith("help") ){
+    help(text);
   }
   else{
     unknownCommand(text);
@@ -74,12 +74,14 @@ function hello(text){
   console.log(text+"!")
 }
 /**
- * help the user
+ * help and the user name 
  *
  * @returns {void}
  */
-function help(){
-  console.log('helping you! If you want to exit just write exit or quit')
+function help(text){
+  text=text.replace("\n","")
+  text=text.trim(" ")
+  console.log(text+"!")
 }
 
 
