@@ -40,8 +40,11 @@ function onDataReceived(text) {
   else if(text === 'hello\n' || text.startsWith("hello") ){
     hello(text);
   }
-  else if(text === 'help\n' || text.startsWith("help") ){
-    help(text);
+  else if(text === 'help\n'){
+    help();
+  }
+  else if(text.startsWith("list")){
+    tasknum(list);
   }
   else{
     unknownCommand(text);
@@ -60,7 +63,21 @@ function unknownCommand(c){
   console.log('unknown command: "'+c.trim()+'"')
 }
 
-
+/**
+ * add list
+ *
+ * @returns {void}
+ */
+function tasknum(list){
+  for(var i=0; i<list.length;i++){
+    if(list[i]=="man2oushe" || list[i]=="Juice" ){
+      console.log(i + ") " + " [✓] " + list[i]);
+    }
+    else{
+    console.log(i + ") " + " [] " + list[i]);
+    }
+  }
+}
 
 
 /**
@@ -74,14 +91,14 @@ function hello(text){
   console.log(text+"!")
 }
 /**
- * help and the user name 
+ * help the user
  *
  * @returns {void}
  */
-function help(text){
-  text=text.replace("\n","")
-  text=text.trim(" ")
-  console.log(text+"!")
+function help(){
+  console.log('Helping you!')
+  console.log('The app can greet the one you want just write hello and the name you want to be greeted')
+  console.log('If you want to exit just write exit or quit')
 }
 
 
