@@ -63,6 +63,8 @@ function unknownCommand(c){
   console.log('unknown command: "'+c.trim()+'"')
 }
 
+var list=["apple", "banana","potato","strawberry"];
+
 /**
  * add list
  *
@@ -70,7 +72,7 @@ function unknownCommand(c){
  */
 function tasknum(list){
   for(var i=0; i<list.length;i++){
-    if(list[i]=="man2oushe" || list[i]=="Juice" ){
+    if(list[i]=="apple" || list[i]=="banana" || list[i]=="potato" || list[i]=="strawberry" ){
       console.log(i + ") " + " [✓] " + list[i]);
     }
     else{
