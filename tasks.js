@@ -52,6 +52,9 @@ function onDataReceived(text) {
   else if(text.startsWith("remove")){
     remove(text);
   }
+  else if(text.startsWith("edit")){
+    edit(text);
+  }
 
   else{
     unknownCommand(text);
@@ -126,10 +129,35 @@ function remove(item){
     list.splice(1,1);
     console.log(list)
   }
+  else{
+    console.log("This remove number doesn't exist");
+  }
   
   }
 
-
+ /**
+ *  edit
+ *
+ * @returns {void}
+ */
+ function edit(item){
+  item=item.trim();
+  item1=item.substring(5).trim();
+   if(item1.startsWith("1")){
+    list.splice(0,1,item1.substring(1).trim());
+    console.log(list)
+  }
+  
+   else if(item1!=""){
+    list.splice(list.length-1,1,item1);
+    console.log(list)
+   }
+  
+  else{
+    console.log("Error! Enter what you want to edit");
+  }
+  
+  }
 
 
 
@@ -152,6 +180,11 @@ function help(){
   console.log('Helping you!')
   console.log('The app can greet the one you want just write hello and the name you want to be greeted')
   console.log('If you want to exit just write exit or quit')
+  console.log('If you want to view the list just write list')
+  console.log('If you want to add on list just write add and the item you want to add for example add juice')
+  console.log('If you want to remove the last item just remove')
+  console.log('If you want to remove the 1st item just write remove 1')
+  console.log('If you want to remove the second item just write remove 2')
 }
 
 
