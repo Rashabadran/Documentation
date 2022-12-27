@@ -46,6 +46,10 @@ function onDataReceived(text) {
   else if(text.startsWith("list")){
     tasknum(list);
   }
+  else if(text.startsWith("add")){
+    addlist(text);
+  }
+
   else{
     unknownCommand(text);
   }
@@ -66,7 +70,7 @@ function unknownCommand(c){
 var list=["apple", "banana","potato","strawberry"];
 
 /**
- * add list
+ *  list
  *
  * @returns {void}
  */
@@ -80,6 +84,26 @@ function tasknum(list){
     }
   }
 }
+/**
+ *  add list
+ *
+ * @returns {void}
+ */
+function addlist(item){
+  item=item.trim();
+  item1=item.substring(4).trim();
+  if(item1!=''){
+    list.push(item1);
+  console.log(item1 + " is added successfully!");
+  }
+  else{
+    console.log("Error! Nothing to add");
+  }
+  
+  }
+
+
+
 
 
 /**
