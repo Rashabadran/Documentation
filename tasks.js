@@ -49,6 +49,9 @@ function onDataReceived(text) {
   else if(text.startsWith("add")){
     addlist(text);
   }
+  else if(text.startsWith("remove")){
+    remove(text);
+  }
 
   else{
     unknownCommand(text);
@@ -98,6 +101,30 @@ function addlist(item){
   }
   else{
     console.log("Error! Nothing to add");
+  }
+  
+  }
+
+  /**
+ *  remove
+ *
+ * @returns {void}
+ */
+function remove(item){
+  item=item.trim();
+  
+   if(item==="remove 1"){
+    list.shift();
+    console.log(list);
+  }
+  
+   else if(item==="remove"){
+    list.pop();
+    console.log(list);
+  }
+  else if(item==="remove 2"){
+    list.splice(1,1);
+    console.log(list)
   }
   
   }
