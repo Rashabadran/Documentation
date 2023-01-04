@@ -178,7 +178,7 @@ if(idd>movies.length || idd<0){
   respondd.send({
     status:404,
      error:true,
-    message:`the movie ${id} does not exist`
+    message:`the movie ${idd} does not exist`
   });
 } 
 else{
@@ -186,3 +186,32 @@ else{
   respondd.send(movies);
 }
 });
+server.get("/movies/update/:id(\\d+)",(requestt,respondd)=>{
+  var idd=requestt.params.id;
+  var title=requestt.query.title;
+  var year=requestt.query.year;
+  var rating=requestt.query.rating;
+  
+  if(idd<movies.length){
+    if(title===undefined || title===""){
+      title=movies[idd].title;
+    }
+    if(year === undefined || year === "" || !(/^\d{4}$/).test(year)){
+    year=movies[idd].year;
+    }
+    if (rating === undefined || rating === "") {
+      rating = movies[idd].rating;  }
+    movies[idd] = {title, year,rating};
+    message2={
+      data:movies
+    }
+    respondd.status(200).send(message2);
+  }
+  else{
+    message2={
+      error: true,
+        message: `the movie ${idd} does not exist`,
+    }
+    respondd.status(404).send(message2);
+  }
+})
