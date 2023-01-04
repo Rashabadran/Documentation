@@ -1,16 +1,11 @@
-const express = require('express')
-const server = express()
+var express = require('express')
+var server = express()
 const port = 3000
 
 server.listen(port, () => {
   console.log(`ok`);
 
-})
-server.use(express.json());
-server.post("/", (requestt, respondd) => {
-  respondd.send("okii");
 });
-
 
 server.get( '/test' ,(requestt,respondd) =>{
     respondd.send({status:200, message:"ok"});
@@ -23,5 +18,35 @@ server.get( '/time' ,(requestt,respondd) =>{
       message:time
     });
 });
+server.get('/hello/:id',(requestt,respondd)=>{
+const message2='Hello, ${requestt.params.id}';
+respondd.send({
+    status:200,
+    message:message2
+  });
+});
+server.get('/search',(requestt,respondd)=>{
+ if(requestt.query.s){
+  data2=requestt.query.s;
+   message2={
+    status:200,
+    message:"ok",
+    data:data2
+  }
+ }
+ else{
+  message2={
+    status:500,
+    message:"you have to provide a search",
+    error:true
+ }
+}
+respondd.send(message2);
+});
 
-
+const movies = [
+  { title: 'Jaws', year: 1975, rating: 8 },
+  { title: 'Avatar', year: 2009, rating: 7.8 },
+  { title: 'Brazil', year: 1985, rating: 8 },
+  { title: 'الإرهاب والكباب', year: 1992, rating: 6.2 }
+]
