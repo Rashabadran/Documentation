@@ -146,3 +146,30 @@ else {
 }
 respondd.send(message2);
 })
+
+server.get("/movies/add",(requestt,respondd) =>{
+  const movie={
+title:requestt.query.title,
+year:requestt.query.year,
+rating:requestt.query.rating};
+if(movie.rating==undefined){
+  movie.rating=4;
+}
+if((movie.title==undefined) || (isNaN(movie.year)) || (movie.year==undefined) || (movie.year.toString().length!==4)){
+respondd.send({
+  status:403, 
+  error:true,
+  message:'you cannot create a movie without providing a title and a year'
+})
+console.log(respondd.json)
+
+}
+else{
+  movies.push(movie);
+  respondd.send(movie);
+  respondd.send({
+    status:200,
+    data:movies
+  })
+}
+});
