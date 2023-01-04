@@ -161,7 +161,6 @@ respondd.send({
   error:true,
   message:'you cannot create a movie without providing a title and a year'
 })
-console.log(respondd.json)
 
 }
 else{
@@ -171,5 +170,19 @@ else{
     status:200,
     data:movies
   })
+}
+});
+server.get("/movies/delete/:id",(requestt,respondd) =>{
+const idd=parseInt(requestt.params.id);
+if(idd>movies.length || idd<0){
+  respondd.send({
+    status:404,
+     error:true,
+    message:`the movie ${id} does not exist`
+  });
+} 
+else{
+  movies.splice(idd,1);
+  respondd.send(movies);
 }
 });
