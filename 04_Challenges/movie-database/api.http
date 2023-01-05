@@ -1,0 +1,40 @@
+get http://localhost:3000
+
+###
+post http://localhost:3000/movies/add?title=rost&year=1333&rating=4
+Content-Type: application/json
+
+{
+    "message": "helloworld"
+}
+
+
+###
+get http://localhost:3000/movies/read
+
+###
+get http://localhost:3000/test
+
+###
+get http://localhost:3000/time
+###
+get http://localhost:3000/hello/2
+###
+get http://localhost:3000/search?s=rs
+
+###
+get http://localhost:3000/movies/read/by-date
+
+###
+get http://localhost:3000/movies/read/by-rating
+
+###
+get http://localhost:3000/movies/read/by-title
+
+###
+get http://localhost:3000/movies/read/id/2
+###
+DELETE http://localhost:3000/movies/delete/4 HTTP/1.1
+
+###
+PUT http://localhost:3000/movies/update/2?title=rasha

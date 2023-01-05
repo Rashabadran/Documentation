@@ -1,15 +1,26 @@
-const express = require('express')
-const port = 3000
-const server = express()
+  const express = require('express')
+  const server=express();
+  const port = 3000
+  
 
-
+server.use(express.json());
 server.listen(port, () => {
   console.log(`ok`);
 
 });
+server.delete("/", (requestt, respondd)=> {
+  console.log("Got a DELETE request for /del_user");
+  respondd.send('Hello DELETE');
+});
 server.get("/",(requestt,respondd)=>{
   respondd.send('Hello');
 });
+server.post("/",(requestt,respondd)=>{
+  respondd.send('Hi');
+});
+
+
+
 server.get( '/test' ,(requestt,respondd) =>{
     respondd.send({status:200, message:"ok"});
 });
@@ -70,7 +81,7 @@ server.get("/movies/update", (requestt, respondd) => {
 
 });
 
-server.get("/movies/delete", (requestt, respondd) => {
+server.delete("/movies/delete", (requestt, respondd) => {
 
 })
 server.get("/movies/read/by-date", (requestt, respondd) => {
@@ -147,7 +158,7 @@ else {
 respondd.send(message2);
 })
 
-server.get("/movies/add",(requestt,respondd) =>{
+server.post("/movies/add",(requestt,respondd) =>{
   const movie={
 title:requestt.query.title,
 year:requestt.query.year,
@@ -156,11 +167,8 @@ if(movie.rating==undefined){
   movie.rating=4;
 }
 if((movie.title==undefined) || (isNaN(movie.year)) || (movie.year==undefined) || (movie.year.toString().length!==4)){
-respondd.send({
-  status:403, 
-  error:true,
-  message:'you cannot create a movie without providing a title and a year'
-})
+  respondd.json({status:403, error:true, message:'you cannot create a movie without providing a title and a year'});
+  console.log(respondd.json)
 
 }
 else{
@@ -170,9 +178,10 @@ else{
     status:200,
     data:movies
   })
+  respondd.json({status: 200, message: 'ok' , data: movies})
 }
 });
-server.get("/movies/delete/:id",(requestt,respondd) =>{
+server.delete("/movies/delete/:id",(requestt,respondd) =>{
 const idd=parseInt(requestt.params.id);
 if(idd>movies.length || idd<0){
   respondd.send({
@@ -186,11 +195,11 @@ else{
   respondd.send(movies);
 }
 });
-server.get("/movies/update/:id(\\d+)",(requestt,respondd)=>{
-  var idd=requestt.params.id;
-  var title=requestt.query.title;
-  var year=requestt.query.year;
-  var rating=requestt.query.rating;
+server.put('/movies/update/:id(\\d+)',(requestt,respondd)=>{
+    var idd=requestt.params.id;
+    var title=requestt.query.title;
+    var year=requestt.query.year;
+    var rating=requestt.query.rating;
   
   if(idd<movies.length){
     if(title===undefined || title===""){
@@ -215,3 +224,4 @@ server.get("/movies/update/:id(\\d+)",(requestt,respondd)=>{
     respondd.status(404).send(message2);
   }
 })
+module.exports=server;
