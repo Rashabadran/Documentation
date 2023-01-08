@@ -1,28 +1,38 @@
   const express = require('express')
   const server=express();
+  const MongoClient    = require('mongodb').MongoClient;
+  const bodyParser     = require('body-parser');
+  const mongoose = require('mongoose');
+  
   const port = 3000
+  require('dotenv/config'); 
+  const { Schema } = mongoose;
+  //to remove the warning
+  mongoose.set("strictQuery", true);
   
 
 server.use(express.json());
+server.use(bodyParser.urlencoded({ extended: true }));
+
 server.listen(port, () => {
   console.log(`ok`);
 
 });
 server.delete("/", (requestt, respondd)=> {
   console.log("Got a DELETE request for /del_user");
-  respondd.send('Hello DELETE');
+  respondd.json('Hello DELETE');
 });
 server.get("/",(requestt,respondd)=>{
-  respondd.send('Hello');
+  respondd.json('Hello');
 });
 server.post("/",(requestt,respondd)=>{
-  respondd.send('Hi');
+  respondd.json('Hi');
 });
 
 
 
 server.get( '/test' ,(requestt,respondd) =>{
-    respondd.send({status:200, message:"ok"});
+    respondd.json({status:200, message:"ok"});
 });
 server.get( '/time' ,(requestt,respondd) =>{
     const datee=new Date();
@@ -30,12 +40,12 @@ server.get( '/time' ,(requestt,respondd) =>{
     const message2={
       status:200,
       message:time};
-      respondd.send(message2);
+      respondd.json(message2);
     
 });
 server.get('/hello/:id',(requestt,respondd)=>{
 const message2=`Hello, ${requestt.params.id}`;
-respondd.send({
+respondd.json({
     status:200,
     message:message2
   });
@@ -56,8 +66,29 @@ server.get('/search',(requestt,respondd)=>{
     error:true
  }
 }
-respondd.send(message2);
+respondd.json(message2);
 });
+
+const moviesSchema = new Schema(
+  {
+      title: {
+          type: String,
+          required: true,
+      },
+      year: {
+          type: Number,
+          required: true,
+         
+      },
+      rating: {
+          type: Number,
+          default: 4,
+          min: 0,
+          max: 5,
+      },
+  },
+  { versionKey: false }
+);
 
 const movies = [
   { title: 'Jaws', year: 1975, rating: 8 },
@@ -66,12 +97,10 @@ const movies = [
   { title: 'الإرهاب والكباب', year: 1992, rating: 6.2 }
 ]
 
-server.get("/movies/create", (requestt, respondd) => {
-    
-});
+const moviess = mongoose.model('moviess', moviesSchema);
 
 server.get("/movies/read", (requestt, respondd) => {
-    respondd.send({
+    respondd.json({
         status: 200, 
         movie: movies
     });
@@ -97,7 +126,7 @@ server.get("/movies/read/by-date", (requestt, respondd) => {
       return 0;
     }
   })
-  respondd.send({
+  respondd.json({
       status: 200, 
       data:arr
   });
@@ -116,7 +145,7 @@ server.get("/movies/read/by-rating", (requestt, respondd) => {
       return 0;
     }
   })
-  respondd.send({
+  respondd.json({
       status: 200, 
       data:arr
   });
@@ -135,7 +164,7 @@ server.get("/movies/read/by-title", (requestt, respondd) => {
       return 0;
     }
   })
-  respondd.send({
+  respondd.json({
       status: 200, 
       data:arr
   });
@@ -155,7 +184,7 @@ else {
   }
 
 }
-respondd.send(message2);
+respondd.json(message2);
 })
 
 server.post("/movies/add",(requestt,respondd) =>{
@@ -173,8 +202,8 @@ if((movie.title==undefined) || (isNaN(movie.year)) || (movie.year==undefined) ||
 }
 else{
   movies.push(movie);
-  respondd.send(movie);
-  respondd.send({
+  respondd.json(movie);
+  respondd.json({
     status:200,
     data:movies
   })
@@ -184,7 +213,7 @@ else{
 server.delete("/movies/delete/:id",(requestt,respondd) =>{
 const idd=parseInt(requestt.params.id);
 if(idd>movies.length || idd<0){
-  respondd.send({
+  respondd.json({
     status:404,
      error:true,
     message:`the movie ${idd} does not exist`
@@ -192,7 +221,7 @@ if(idd>movies.length || idd<0){
 } 
 else{
   movies.splice(idd,1);
-  respondd.send(movies);
+  respondd.json(movies);
 }
 });
 server.put('/movies/update/:id(\\d+)',(requestt,respondd)=>{
@@ -224,4 +253,9 @@ server.put('/movies/update/:id(\\d+)',(requestt,respondd)=>{
     respondd.status(404).send(message2);
   }
 })
+
+
+
+
+
 module.exports=server;
