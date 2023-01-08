@@ -231,7 +231,7 @@ function help(){
   console.log('If you want to add on list just write add and the item you want to add for example add juice')
   console.log('If you want to remove the last item just remove')
   console.log('If you want to remove the nth item in the list just write remove nth')
-  console.log('example If you want to remove the 3rd item just write remove 3')
+  console.log('If you want to remove the 3rd item just write remove 3')
   console.log("If you want to replace the nth item write edit nth new item")
   console.log("If you want to replace the last item write edit new item")
   console.log("If you want to check an item write check and the number of item")
